@@ -51,3 +51,30 @@ gem5/run-opt/hello-world:
 gem5/run-debug/hello-world:
 	@ gdb --args gem5/build/RISCV/gem5.debug gem5/configs/learning_gem5/part1/simple-riscv.py
 
+.PHONY: gem5/run-opt/simple-riscv-vp/firmware
+gem5/run-opt/simple-riscv-vp/firmware:
+	@ ./gem5/build/RISCV/gem5.opt ./simple-riscv-vp.py  --firmware ./firmware/build/simple.elf --cpu-type $(CPU_TYPE)
+
+.PHONY: gem5/run-debug/simple-riscv-vp/firmware
+gem5/run-debug/simple-riscv-vp/firmware:
+	@ gdb --args ./gem5/build/RISCV/gem5.debug ./simple-riscv-vp.py  --firmware ./firmware/build/simple.elf --cpu-type $(CPU_TYPE)
+
+.PHONY: gem5/clean
+gem5/clean:
+	@ rm -rf ./gem5 ./gem5_venv
+
+
+.PHONY: gem5/term/run
+gem5/term/run:
+	@ ./gem5/util/term/gem5term $(TERM_PORT)
+
+#####################
+####  firmware  #####
+#####################
+.PHONY: firmware/build
+firmware/build:
+	@ cd firmware && make all
+
+.PHONY: firmware/clean
+firmware/clean:
+	@ cd firmware && make clean
