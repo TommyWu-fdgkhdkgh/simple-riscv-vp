@@ -38,15 +38,23 @@ void start() {
   asm volatile("mret");
 }
 
+void pmenu(void) {
+  printf("============ menu ============\n");
+  printf("a : calculate a big number and insert mtime interrupt\n");
+  printf("m : set mtime cmp\n");
+  printf("==============================\n");
+}
+
 int main() {
   timer_init();
 
-  printf("hello world!\n");
+  printf("start simple firmware!\n");
+  pmenu();
 
   while (1) {
     char c = uart_getchar();
     if (c == 'a') {
-      printf("a ! calculate a big number and insert mtime interrupt!\n");
+      printf("a : calculate a big number and insert mtime interrupt!\n");
       int a = 0;
       int b = 0;
       set_mtimecmp(get_mtime() + 100000);
@@ -56,7 +64,7 @@ int main() {
       }
       printf("done!\n");
     } else if (c == 'm') {
-      printf("m ! set mtime cmp !\n");
+      printf("m : set mtime cmp !\n");
       set_mtimecmp(get_mtime() + 100000);
     }
   }
