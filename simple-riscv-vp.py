@@ -11,6 +11,8 @@ from m5.objects import *
 # future work :
 # multi-core
 # PLIC
+# ruby-CHI
+# xv6-riscv
 
 # A very simplified platform
 class SimpleRiscvPlatform(SimplePlatform):
