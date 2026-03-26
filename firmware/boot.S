@@ -3,7 +3,7 @@
 .global _start
 _start:
     csrr   t0, mhartid
-    lui    t1, 0
+    li    t1, 0
     beq    t0, t1, 2f
 
 1:  wfi
