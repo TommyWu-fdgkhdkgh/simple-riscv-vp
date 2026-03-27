@@ -57,7 +57,7 @@ gem5/run-opt/simple-riscv-vp/firmware:
 
 .PHONY: gem5/run-debug/simple-riscv-vp/firmware
 gem5/run-debug/simple-riscv-vp/firmware:
-	@ gdb --args ./gem5/build/RISCV/gem5.debug ./simple-riscv-vp.py  --firmware ./firmware/build/simple.elf --cpu-type $(CPU_TYPE)
+	@ gdb --args ./gem5/build/RISCV/gem5.debug ./simple-riscv-vp.py  --firmware ./firmware/build/simple.elf --cpu-type $(CPU_TYPE) --l1-icache
 
 .PHONY: gem5/clean
 gem5/clean:

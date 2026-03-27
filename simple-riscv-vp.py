@@ -94,7 +94,7 @@ parser.add_argument(
     dest='cpu_type',
     required=False,
     default="atomic",
-    choices=['atomic', 'timing', 'minor'],
+    choices=['atomic', 'timing', 'minor', 'o3'],
     help='The firmware image to run',
 )
 parser.add_argument(
@@ -155,6 +155,10 @@ elif args.cpu_type == "minor":
     system.cpu = RiscvMinorCPU(clk_domain = system.cpu_clk_domain,
                            cpu_id = 0)
     system.mem_mode = "timing"
+elif args.cpu_type == "o3":
+    system.cpu = RiscvO3CPU(clk_domain = system.cpu_clk_domain,
+                            cpu_id = 0)
+    system.mem_mode = "timing"
 else:
     panic("unsupported mem_mode!")
 
@@ -188,9 +192,15 @@ system.platform.attachChipIO(system.membus)
 system.dram = SimpleMemory(
     range=AddrRange(0x8000_0000, size='4GiB'),
     port=system.membus.mem_side_ports,
-    in_addr_map=False,
+    # in_addr_map=False, # comment this for O3 CPU model
     collect_stats=False,
     latency=args.dram_latency,
+)
+# This is for O3 CPU model
+system.fake = IsaFake(
+    pio=system.membus.mem_side_ports,
+    pio_addr=0x0,
+    pio_size=0x10,
 )
 
 # XXX : make a args for `wait-for-remote-gdb`

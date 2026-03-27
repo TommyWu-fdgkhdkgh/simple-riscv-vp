@@ -1,6 +1,7 @@
 #include "riscv.h"
 #include "uart.h"
 #include "printf.h"
+#include "dhrystone/dhry.h"
 
 #define CLINT_BASE 0x2000000
 #define MTIME (CLINT_BASE + 0xbff8)
@@ -42,6 +43,9 @@ void pmenu(void) {
   printf("============ menu ============\n");
   printf("a : calculate a big number and insert mtime interrupt\n");
   printf("m : set mtime cmp\n");
+  printf("M : test print mcycle\n");
+  printf("d : run dhrystone\n");
+  printf("T : test print mtime\n");
   printf("==============================\n");
 }
 
@@ -66,6 +70,20 @@ int main() {
     } else if (c == 'm') {
       printf("m : set mtime cmp !\n");
       set_mtimecmp(get_mtime() + 100000);
+    } else if (c == 'M') {
+      printf("M : test print mcycle !\n");
+      printf("mcycle : %u\n", r_mcycle());
+      printf("mcycle_hi : %u\n", r_mcycleh());
+    } else if (c == 'T') {
+      printf("T : test print mtime !\n");
+      uint64_t mtime = r_mtime64();
+      uint32_t mtime_low = mtime;
+      uint32_t mtime_hi = mtime >> 32;
+      printf("mtime : %u\n", mtime_low);
+      printf("mtime_hi : %u\n", mtime_hi);
+    } else if (c == 'd') {
+      printf("run dhrystone !\n");
+      dhrystone_main();
     }
   }
 
