@@ -2,6 +2,7 @@
 #include "uart.h"
 #include "printf.h"
 #include "dhrystone/dhry.h"
+#include "m5ops.h"
 
 #define CLINT_BASE 0x2000000
 #define MTIME (CLINT_BASE + 0xbff8)
@@ -46,6 +47,8 @@ void pmenu(void) {
   printf("M : test print mcycle\n");
   printf("d : run dhrystone\n");
   printf("T : test print mtime\n");
+  printf("e : test m5exit\n");
+  printf("E : test status dump\n");
   printf("==============================\n");
 }
 
@@ -84,6 +87,13 @@ int main() {
     } else if (c == 'd') {
       printf("run dhrystone !\n");
       dhrystone_main();
+    } else if (c == 'e') {
+      printf("test m5 exit !\n");
+      m5_exit();
+    } else if (c == 'E') {
+      printf("test m5 status !\n");
+      m5_resetstats();
+      m5_dumpstats();
     }
   }
 

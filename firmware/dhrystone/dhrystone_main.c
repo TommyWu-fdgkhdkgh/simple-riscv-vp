@@ -3,6 +3,7 @@
 #include "uart.h"
 #include "dhrystone/dhry.h"
 #include "dhrystone/mini_lib.h"
+#include "m5ops.h"
 
 #ifndef DHRY_ITERS
 #define DHRY_ITERS 2000
@@ -167,6 +168,7 @@ void dhrystone_main(void) {
 #if 0
   begin_mcycle = r_mcycle64();
 #else
+  m5_resetstats();
   begin_mtime = r_mtime64();
 #endif
 
@@ -232,6 +234,7 @@ void dhrystone_main(void) {
 #if 0
   end_mcycle = r_mcycle64();
 #else
+  m5_dumpstats();
   end_mtime = r_mtime64();
 #endif
 
