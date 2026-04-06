@@ -98,10 +98,10 @@ int main() {
       m5_resetstats();
       m5_dumpstats();
     } else if (c == 's') {
-      printf("run bubble sort!");
+      printf("run bubble sort!\n");
       bubble_sort(); 
     } else if (c == 'S') {
-      printf("run merge sort!");
+      printf("run merge sort!\n");
       merge_sort();
     }
   }
