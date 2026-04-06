@@ -3,6 +3,7 @@
 #include "printf.h"
 #include "dhrystone/dhry.h"
 #include "m5ops.h"
+#include "sort.h"
 
 #define CLINT_BASE 0x2000000
 #define MTIME (CLINT_BASE + 0xbff8)
@@ -49,6 +50,8 @@ void pmenu(void) {
   printf("T : test print mtime\n");
   printf("e : test m5exit\n");
   printf("E : test status dump\n");
+  printf("s : run bubble sort\n");
+  printf("S : run merge sort\n");
   printf("==============================\n");
 }
 
@@ -94,6 +97,12 @@ int main() {
       printf("test m5 status !\n");
       m5_resetstats();
       m5_dumpstats();
+    } else if (c == 's') {
+      printf("run bubble sort!");
+      bubble_sort(); 
+    } else if (c == 'S') {
+      printf("run merge sort!");
+      merge_sort();
     }
   }
 
